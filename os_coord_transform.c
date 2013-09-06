@@ -3,6 +3,9 @@
  *
  * This is a port of a the Javascript library produced by Chris Veness available
  * from http://www.movable-type.co.uk/scripts/latlong-gridref.html.
+ *
+ * These functions are largely based on the guide in "A guide to coordinate
+ * systems in Great Britain", Section 6.
  */
 
 #include <stdio.h>
