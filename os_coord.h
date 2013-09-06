@@ -13,6 +13,21 @@
  ******************************************************************************/
 
 /**
+ * Ordinance Survey Eastings and Northings (and ODN height).
+ */
+typedef struct os_eas_nor {
+	// Eastings (m)
+	double e;
+	
+	// Northings (m)
+	double n;
+	
+	// Height above Ordinance Datum Newlyn (ODN) (m)
+	double h;
+} os_eas_nor_t;
+
+
+/**
  * Latitude/Longitude with ellipsoidal height.
  */
 typedef struct os_lat_lon {
@@ -25,6 +40,7 @@ typedef struct os_lat_lon {
 	// Ellipsoidal height (m)
 	double eh;
 } os_lat_lon_t;
+
 
 /**
  * Cartesian 3D coordinate.
@@ -82,7 +98,8 @@ typedef struct os_helmert {
 	double s;
 } os_helmert_t;
 
-// Values taken from "A guide to coordinate systems in Great Britain"
+// Values taken from "A guide to coordinate systems in Great Britain". Produces
+// heights "similar to" ODN heights.
 const os_helmert_t OS_HE_WGS84_TO_OSGB36 = {
 	.tx= -446.448,  .ty=  125.157,   .tz= -542.060,
 	.rx=   -0.1502, .ry=   -0.2470,  .rz=   -0.8421,
