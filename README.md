@@ -9,4 +9,3 @@ out why this statement would be considered extremely vuage) see the excellent
 OS-published guide [A guide to coordinate systems in Great
 Britain](http://badc.nerc.ac.uk/help/coordinates/OSGB.pdf).
 
-

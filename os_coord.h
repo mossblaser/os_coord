@@ -9,11 +9,11 @@
 #define OS_COORD_H
 
 /******************************************************************************
- * Coordinates
+ * Coordinate Types
  ******************************************************************************/
 
 /**
- * Ordinance Survey Eastings and Northings (and ODN height).
+ * Eastings and Northings (and height).
  */
 typedef struct os_eas_nor {
 	// Eastings (m)
@@ -22,7 +22,7 @@ typedef struct os_eas_nor {
 	// Northings (m)
 	double n;
 	
-	// Height above Ordinance Datum Newlyn (ODN) (m)
+	// Height (m)
 	double h;
 } os_eas_nor_t;
 
@@ -53,7 +53,7 @@ typedef struct os_cartesian {
 
 
 /******************************************************************************
- * Ellipsoid definition and along with some comman ellipsoids.
+ * Ellipsoid definitions
  ******************************************************************************/
 
 /**
@@ -67,16 +67,9 @@ typedef struct os_ellipsoid {
 	double b;
 } os_ellipsoid_t;
 
-// Ellipsoid values taken from "A guide to coordinate systems in Great Britain"
-const os_ellipsoid_t OS_EL_AIRY_1830          = {.a=6377563.396, .b=6356256.910};
-const os_ellipsoid_t OS_EL_AIRY_1830_MODIFIED = {.a=6377340.189, .b=6356034.447};
-const os_ellipsoid_t OS_EL_INTERNATIONAL_1924 = {.a=6378388.000, .b=6356911.946};
-const os_ellipsoid_t OS_EL_GRS80              = {.a=6378137.000, .b=6356752.314140};
-const os_ellipsoid_t OS_EL_WGS84              = {.a=6378137.000, .b=6356752.3142};
-
 
 /******************************************************************************
- * Helmert transformations along with some useful transformations.
+ * Helmert transformations
  ******************************************************************************/
 
 /**
@@ -98,27 +91,27 @@ typedef struct os_helmert {
 	double s;
 } os_helmert_t;
 
-// Values taken from "A guide to coordinate systems in Great Britain". Produces
-// heights "similar to" ODN heights.
-const os_helmert_t OS_HE_WGS84_TO_OSGB36 = {
-	.tx= -446.448,  .ty=  125.157,   .tz= -542.060,
-	.rx=   -0.1502, .ry=   -0.2470,  .rz=   -0.8421,
-	 .s=   20.4894
-};
 
-// Values taken from http://og.decc.gov.uk/en/olgs/cms/pons_and_cop/pons/pon4/pon4.aspx
-const os_helmert_t OS_HE_WGS84_TO_ED50 = {
-	.tx= 89.5, .ty= 93.8, .tz= 123.1,
-	.rx=  0.0, .ry=  0.0, .rz=   0.156,
-	 .s= -1.2 
-};
+/******************************************************************************
+ * Transverse Mercator projections
+ ******************************************************************************/
 
-// Values taken from http://www.osi.ie/OSI/media/OSI/Content/Publications/transformations_booklet.pdf
-// and http://www.ordnancesurvey.co.uk/oswebsite/gps/information/coordinatesystemsinfo/guidecontents/guide6.html#6.5
-const os_helmert_t OS_HE_ETRF89_TO_IRL1975 = {
-	.tx= -482.530, .ty= 130.596, .tz= -564.557,
-	.rx=   -1.042, .ry=  -0.214, .rz=   -0.631,
-	 .s=   -8.150 
-};
+typedef struct os_tm_projection {
+	// Eastings and Northings of the true origin (m)
+	double e0;
+	double n0;
+	
+	// Central meridian scale factor
+	double f0;
+	
+	// Latitude of true origin (degrees)
+	double lat0;
+	
+	// Longitude of true origin and central meridian (degrees)
+	double lon0;
+	
+	// The ellipsoid on which the lat/lon refer.
+	os_ellipsoid_t ellipsoid;
+} os_tm_projection_t;
 
 #endif
