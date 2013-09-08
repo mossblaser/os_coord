@@ -105,5 +105,26 @@ const os_tm_projection_t OS_TM_UTM_ZOME_31 = {
 	.ellipsoid={.a=6378388.000, .b=6356911.946} // International 1924
 };
 
+
+/******************************************************************************
+ * National grid system grids.
+ ******************************************************************************/
+
+// Ordinance Survey National Grid over England, Scotland and Wales.
+const os_grid_t OS_GR_NATIONAL_GRID = {
+	.num_digits=2,
+	.bottom_left_first_char='S',
+	.width=7,
+	.height=13
+};
+
+// Ordinance Survey National Grid over Ireland and Northern Ireland
+const os_grid_t OS_GR_IRISH_NATIONAL_GRID = {
+	.num_digits=1,
+	.bottom_left_first_char='V',
+	.width=5,
+	.height=5
+};
+
 #endif
 

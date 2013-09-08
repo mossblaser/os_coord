@@ -13,6 +13,25 @@
  ******************************************************************************/
 
 /**
+ * Ordinance Survey Grid Reference and height.
+ */
+typedef struct os_grid_ref {
+	// One- or two-character [Irish] National Grid code for the specified square
+	// (plus a NULL terminator). If the string is the empty string then the grid
+	// reference is not a valid reference.
+	char code[3];
+	
+	// Eastings (m)
+	double e;
+	
+	// Northings (m)
+	double n;
+	
+	// Height (m)
+	double h;
+} os_grid_ref_t;
+
+/**
  * Eastings and Northings (and height).
  */
 typedef struct os_eas_nor {
@@ -113,5 +132,37 @@ typedef struct os_tm_projection {
 	// The ellipsoid on which the lat/lon refer.
 	os_ellipsoid_t ellipsoid;
 } os_tm_projection_t;
+
+
+
+/******************************************************************************
+ * National grid system grids.
+ ******************************************************************************/
+
+/**
+ * A definition of a National Grid grid-like system of grid squares. The grid is
+ * assumed to be made up of 100km squares. Each letter reffers to a
+ * grid/sub-grid of 5x5 letters arranged like so:
+ *
+ *  A B C D E
+ *  F G H J K
+ *  L M N O P
+ *  Q R S T U
+ *  V W X Y Z
+ *
+ * (Note the missing 'I')
+ */
+typedef struct os_grid {
+	// Number of digits in the grid square letters
+	int num_digits;
+	
+	// First letter of the bottom-left grid-square.
+	char bottom_left_first_char;
+	
+	// Width and height (in 100km grid squares) of the area that the grid system
+	// applies.
+	int width;
+	int height;
+} os_grid_t;
 
 #endif

@@ -251,6 +251,7 @@ os_tm_eas_nor_to_lat_lon( os_eas_nor_t       point
 
 
 #include "os_coord_data.h"
+#include "os_coord_ordinance_survey.h"
 
 int
 main(int argc, char *argv[])
@@ -275,12 +276,29 @@ main(int argc, char *argv[])
 	os_lat_lon_t   home_ll_airy30  = os_cartesian_to_lat_lon(home_c_airy30, OS_EL_AIRY_1830);
 	os_eas_nor_t   home_en_airy30  = os_lat_lon_to_tm_eas_nor(home_ll_airy30, OS_TM_NATIONAL_GRID);
 	os_lat_lon_t   home_ll_airy30_ = os_tm_eas_nor_to_lat_lon(home_en_airy30, OS_TM_NATIONAL_GRID);
+	os_grid_ref_t  home_grid_ref   = os_eas_nor_to_grid_ref(home_en_airy30, OS_GR_NATIONAL_GRID);
+	os_eas_nor_t   home_en_airy30_ = os_grid_ref_to_eas_nor(home_grid_ref, OS_GR_NATIONAL_GRID);
+	
+	printf("\n");
+	printf("OS Eastings/Northings Height\n");
+	printf("Eas %f\n", home_en_airy30.e);
+	printf("Nor %f\n", home_en_airy30.n);
+	printf("Hei %f\n", home_en_airy30.h);
 	
 	printf("\n");
 	printf("Lat/lon/eh before and after ll->eastings/northings->ll\n");
 	printf("Lat %f - %f = %0.10f\n", home_ll_airy30.lat, home_ll_airy30_.lat, home_ll_airy30.lat - home_ll_airy30_.lat);
 	printf("Lon %f - %f = %0.10f\n", home_ll_airy30.lon, home_ll_airy30_.lon, home_ll_airy30.lon - home_ll_airy30_.lon);
 	printf("Eh  %f - %f = %0.10f\n", home_ll_airy30.eh,  home_ll_airy30_.eh, home_ll_airy30.eh   - home_ll_airy30_.eh);
+	
+	printf("\n");
+	printf("National Grid Coordinates\n");
+	printf("%s %05.0f %05.0f (%0.1fm)\n", home_grid_ref.code, home_grid_ref.e, home_grid_ref.n, home_grid_ref.h);
+	printf("Lossless conversion back: %s\n",
+		(home_en_airy30_.e == home_en_airy30.e &&
+		home_en_airy30_.n == home_en_airy30.n &&
+		home_en_airy30_.h == home_en_airy30.h) ? "True" : "False"
+	);
 	
 	return 0;
 }
