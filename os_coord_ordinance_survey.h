@@ -21,8 +21,9 @@ os_grid_ref_t os_eas_nor_to_grid_ref(os_eas_nor_t point, os_grid_t grid);
 
 /**
  * Transform an Ordinance Survey style grid reference into eastings and
- * northings. Assumes that the provided grid reference is valid on the given
- * grid. No checking is performed and behaviour is undefined if not valid.
+ * northings. Assumes that the provided grid reference is upper case and valid
+ * on the given grid. No checking is performed and behaviour is undefined if not
+ * valid.
  */
 os_eas_nor_t os_grid_ref_to_eas_nor(os_grid_ref_t point, os_grid_t grid);
 
