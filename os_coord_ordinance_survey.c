@@ -46,10 +46,8 @@ os_eas_nor_to_grid_ref( os_eas_nor_t point
 	os_grid_ref_t grid_ref = {.code={'\0','\0','\0'}};
 	
 	// Figure out the coordinate of the square in the grid
-	int sq_x = (OS_NUM2INT(point.e)) / 100000;
-	int sq_y = (OS_NUM2INT(point.n)) / 100000;
-	
-	printf("%d,%d\n", sq_x, sq_y);
+	long sq_x = (OS_NUM2LONG(point.e)) / 100000l;
+	long sq_y = (OS_NUM2LONG(point.n)) / 100000l;
 	
 	// Check that the point is within the range covered by the grid-reference, if
 	// not return an invalid grid reference.
@@ -58,10 +56,10 @@ os_eas_nor_to_grid_ref( os_eas_nor_t point
 	}
 	
 	// Work out each digit of the grid code
-	for (int i = grid.num_digits - 1; i >= 0; i--) {
+	for (long i = grid.num_digits - 1; i >= 0; i--) {
 		// First digit may be offset in its grid
-		int off_x = (i == 0) ? I2X(C2I(grid.bottom_left_first_char)) : 0;
-		int off_y = (i == 0) ? I2Y(C2I(grid.bottom_left_first_char)) : 0;
+		long off_x = (i == 0) ? I2X(C2I(grid.bottom_left_first_char)) : 0;
+		long off_y = (i == 0) ? I2Y(C2I(grid.bottom_left_first_char)) : 0;
 		
 		// Figure out the letter for this digit
 		grid_ref.code[i] = I2C(XY2I(off_x + (sq_x%5), off_y + (sq_y%5)));
@@ -85,16 +83,16 @@ os_grid_ref_to_eas_nor( os_grid_ref_t grid_ref
                       , os_grid_t grid)
 {
 	// Get the grid-square positions
-	int sq_x = 0;
-	int sq_y = 0;
-	for (int i = 0; i < grid.num_digits; i++) {
+	long sq_x = 0;
+	long sq_y = 0;
+	for (long i = 0; i < grid.num_digits; i++) {
 		// "Shift" up the previous digit
 		sq_x *= 5;
 		sq_y *= 5;
 		
 		// First digit may be offset in its grid
-		int off_x = (i == 0) ? I2X(C2I(grid.bottom_left_first_char)) : 0;
-		int off_y = (i == 0) ? I2Y(C2I(grid.bottom_left_first_char)) : 0;
+		long off_x = (i == 0) ? I2X(C2I(grid.bottom_left_first_char)) : 0;
+		long off_y = (i == 0) ? I2Y(C2I(grid.bottom_left_first_char)) : 0;
 		
 		// Figure out the x/y for this digit
 		sq_x += I2X(C2I(grid_ref.code[i])) - off_x;
@@ -103,8 +101,8 @@ os_grid_ref_to_eas_nor( os_grid_ref_t grid_ref
 	
 	// Convert to raw eastings and northings
 	os_eas_nor_t point;
-	point.e = OS_ADD(grid_ref.e, OS_MUL(OS_NUM_LIT(100000.0), OS_INT2NUM(sq_x)));
-	point.n = OS_ADD(grid_ref.n, OS_MUL(OS_NUM_LIT(100000.0), OS_INT2NUM(sq_y)));
+	point.e = OS_ADD(grid_ref.e, OS_MUL(OS_NUM_LIT(100000.0), OS_LONG2NUM(sq_x)));
+	point.n = OS_ADD(grid_ref.n, OS_MUL(OS_NUM_LIT(100000.0), OS_LONG2NUM(sq_y)));
 	point.h = grid_ref.h;
 	
 	return point;
