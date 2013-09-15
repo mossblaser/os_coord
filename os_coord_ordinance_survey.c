@@ -46,8 +46,8 @@ os_eas_nor_to_grid_ref( os_eas_nor_t point
 	os_grid_ref_t grid_ref = {.code={'\0','\0','\0'}};
 	
 	// Figure out the coordinate of the square in the grid
-	int sq_x = ((int)point.e) / 100000;
-	int sq_y = ((int)point.n) / 100000;
+	int sq_x = (OS_NUM2INT(point.e)) / 100000;
+	int sq_y = (OS_NUM2INT(point.n)) / 100000;
 	
 	printf("%d,%d\n", sq_x, sq_y);
 	
@@ -72,8 +72,8 @@ os_eas_nor_to_grid_ref( os_eas_nor_t point
 	}
 	
 	// Work out the other fields
-	grid_ref.e = fmod(point.e, 100000.0);
-	grid_ref.n = fmod(point.n, 100000.0);
+	grid_ref.e = OS_MOD(point.e, OS_NUM_LIT(100000.0));
+	grid_ref.n = OS_MOD(point.n, OS_NUM_LIT(100000.0));
 	grid_ref.h = point.h;
 	
 	return grid_ref;
@@ -103,8 +103,8 @@ os_grid_ref_to_eas_nor( os_grid_ref_t grid_ref
 	
 	// Convert to raw eastings and northings
 	os_eas_nor_t point;
-	point.e = grid_ref.e + (100000.0 * (double)sq_x);
-	point.n = grid_ref.n + (100000.0 * (double)sq_y);
+	point.e = OS_ADD(grid_ref.e, OS_MUL(OS_NUM_LIT(100000.0), OS_INT2NUM(sq_x)));
+	point.n = OS_ADD(grid_ref.n, OS_MUL(OS_NUM_LIT(100000.0), OS_INT2NUM(sq_y)));
 	point.h = grid_ref.h;
 	
 	return point;

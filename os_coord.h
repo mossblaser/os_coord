@@ -8,6 +8,8 @@
 #ifndef OS_COORD_H
 #define OS_COORD_H
 
+#include "os_coord_math.h"
+
 /******************************************************************************
  * Coordinate Types
  ******************************************************************************/
@@ -22,13 +24,13 @@ typedef struct os_grid_ref {
 	char code[3];
 	
 	// Eastings (m)
-	double e;
+	OS_NUM_T e;
 	
 	// Northings (m)
-	double n;
+	OS_NUM_T n;
 	
 	// Height (m)
-	double h;
+	OS_NUM_T h;
 } os_grid_ref_t;
 
 /**
@@ -36,13 +38,13 @@ typedef struct os_grid_ref {
  */
 typedef struct os_eas_nor {
 	// Eastings (m)
-	double e;
+	OS_NUM_T e;
 	
 	// Northings (m)
-	double n;
+	OS_NUM_T n;
 	
 	// Height (m)
-	double h;
+	OS_NUM_T h;
 } os_eas_nor_t;
 
 
@@ -51,13 +53,13 @@ typedef struct os_eas_nor {
  */
 typedef struct os_lat_lon {
 	// Latitude (radians)
-	double lat;
+	OS_NUM_T lat;
 	
 	// Longitude (radians)
-	double lon;
+	OS_NUM_T lon;
 	
 	// Ellipsoidal height (m)
-	double eh;
+	OS_NUM_T eh;
 } os_lat_lon_t;
 
 
@@ -65,9 +67,9 @@ typedef struct os_lat_lon {
  * Cartesian 3D coordinate.
  */
 typedef struct os_cartesian {
-	double x;
-	double y;
-	double z;
+	OS_NUM_T x;
+	OS_NUM_T y;
+	OS_NUM_T z;
 } os_cartesian_t;
 
 
@@ -80,10 +82,10 @@ typedef struct os_cartesian {
  */
 typedef struct os_ellipsoid {
 	// Semi-major axis (m)
-	double a;
+	OS_NUM_T a;
 	
 	// Semi-minor axis (m)
-	double b;
+	OS_NUM_T b;
 } os_ellipsoid_t;
 
 
@@ -97,17 +99,17 @@ typedef struct os_ellipsoid {
  */
 typedef struct os_helmert {
 	// Translation (m)
-	double tx;
-	double ty;
-	double tz;
+	OS_NUM_T tx;
+	OS_NUM_T ty;
+	OS_NUM_T tz;
 	
 	// Rotation (seconds)
-	double rx;
-	double ry;
-	double rz;
+	OS_NUM_T rx;
+	OS_NUM_T ry;
+	OS_NUM_T rz;
 	
 	// Scale Factor (ppm)
-	double s;
+	OS_NUM_T s;
 } os_helmert_t;
 
 
@@ -117,17 +119,17 @@ typedef struct os_helmert {
 
 typedef struct os_tm_projection {
 	// Eastings and Northings of the true origin (m)
-	double e0;
-	double n0;
+	OS_NUM_T e0;
+	OS_NUM_T n0;
 	
 	// Central meridian scale factor
-	double f0;
+	OS_NUM_T f0;
 	
 	// Latitude of true origin (degrees)
-	double lat0;
+	OS_NUM_T lat0;
 	
 	// Longitude of true origin and central meridian (degrees)
-	double lon0;
+	OS_NUM_T lon0;
 	
 	// The ellipsoid on which the lat/lon refer.
 	os_ellipsoid_t ellipsoid;

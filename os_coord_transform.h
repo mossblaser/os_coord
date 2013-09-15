@@ -12,12 +12,13 @@
 #define OS_COORD_TRANSFORM_H
 
 #include "os_coord.h"
+#include "os_coord_math.h"
 
 /**
  * Conversion from cartesian to lat-lon coordinates is done via an iterative
  * algorithm. This constant defines the number of meters precision to achieve.
  */
-#define OS_CART_TO_LAT_LON_PRECISION 4.0
+#define OS_CART_TO_LAT_LON_PRECISION (OS_NUM_LIT(4.0))
 
 /**
  * Conversion from cartesian to eastings and northings on a TM projection to
@@ -25,7 +26,7 @@
  * value that (N - N_0 - M) may hold (m). The value 0.1mm is suggested by "A
  * guide to coordinate systems in Great Britain".
  */
-#define OS_EAS_NOR_TO_LAT_LON_PRECISION 0.00001
+#define OS_EAS_NOR_TO_LAT_LON_PRECISION (OS_NUM_LIT(0.00001))
 
 /**
  * Convert a lat/lon/eh point on an ellipsoid to the corresponding point in 3D
