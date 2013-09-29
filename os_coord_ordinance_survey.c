@@ -49,8 +49,6 @@ os_eas_nor_to_grid_ref( os_eas_nor_t point
 	int sq_x = ((int)point.e) / 100000;
 	int sq_y = ((int)point.n) / 100000;
 	
-	printf("%d,%d\n", sq_x, sq_y);
-	
 	// Check that the point is within the range covered by the grid-reference, if
 	// not return an invalid grid reference.
 	if (sq_x < 0 || sq_y < 0 || sq_x >= grid.width || sq_y >= grid.height) {
